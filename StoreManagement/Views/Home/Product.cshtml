@@ -1,0 +1,78 @@
+﻿@model IEnumerable<StoreManagement.Models.tblProduct>
+@{
+    ViewBag.Title = "Product";
+}
+
+<h2>Products under <em>@ViewBag.CategoryName</em> category</h2>
+<h4 class="text-right">@Html.ActionLink("Add New Product", "Create", "Products")</h4>
+
+@foreach (var product in Model)
+{
+    <div class="row jumbotron">
+        <div class="col-xs-3">
+            @{
+                var base64 = Convert.ToBase64String(product.Picture);
+                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgsrc" style="max-width:150px;max-height:150px" />
+            }
+
+        </div>
+        <div class="col-xs-5">
+            <h4>@product.Product_Name</h4>
+            <div>
+                <strong>Price : </strong>@product.Selling_Price.ToString("0.00")/- per @product.Mesureing_Unit
+            </div>
+            <div class="text-info">
+                <strong>Available Quantity : </strong>@product.Available_Quantity @product.Mesureing_Unit
+            </div>
+            <div>
+                <a href="@Url.Action("Details","Products",new { id = product.Product_ID })">Details</a> |
+                <a href="@Url.Action("Delete","Products",new { id = product.Product_ID })">Delete</a>
+            </div>
+        </div>
+        <div class="col-xs-4 text-right">
+            <a href="@Url.Action("Create","Purchases",new { id = product.Product_ID })">Purchase This Product</a><br />
+            <a href="@Url.Action("Create","Sales",new { id = product.Product_ID })">Sold This Product</a>
+        </div>
+    </div>
+
+}
+<div class="text-right">
+    <nav>
+        <ul class="pagination">
+            @if (ViewBag.CurrentPage > 1)
+            {
+                <li>
+                    <a href="@Url.Action("Product","Home",new { id=ViewBag.CategoryID,page=ViewBag.CurrentPage-1},null)">&laquo;</a>
+                </li>
+            }
+            else
+            {
+                <li class="disabled"><a href="#">&laquo;</a></li>
+            }
+            @for (int i = 1; i <= ViewBag.TotalPages; i++)
+            {
+                if (i == ViewBag.CurrentPage)
+                {
+                    <li class="active">@Html.ActionLink(i.ToString(), "Product", "Home", new { id = ViewBag.CategoryID, Page = i }, null)</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink(i.ToString(), "Product", "Home", new { id = ViewBag.CategoryID, Page = i }, null)</li>
+                }
+            }
+            @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+            {
+                <li>
+                    <a href="@Url.Action("Product","Home",new { id=ViewBag.CategoryID,page=ViewBag.CurrentPage+1},null)">&raquo;</a>
+                </li>
+            }
+            else
+            {
+                <li class="disabled"><a href="#">&raquo;</a></li>
+            }
+        </ul>
+    </nav>
+</div>
+
+

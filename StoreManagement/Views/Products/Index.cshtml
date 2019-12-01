@@ -1,0 +1,67 @@
+﻿@model IEnumerable<StoreManagement.Models.tblProduct>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>All Product List</h2>
+
+<p>
+    @Html.ActionLink("Add New Product", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mesureing_Unit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Available_Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Selling_Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Picture)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Product_Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.tblCategory.Category_Name)
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mesureing_Unit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Available_Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Selling_Price)
+        </td>
+        <td>
+            @{ 
+                var base64 = Convert.ToBase64String(item.Picture);
+                var imgsrc = string.Format("data:image/gif;base64,{0}", base64);
+                <img src="@imgsrc" style="max-width:50px;max-height:50px"/>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Product_Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.tblCategory.Category_Name)
+        </td>
+    </tr>
+}
+
+</table>

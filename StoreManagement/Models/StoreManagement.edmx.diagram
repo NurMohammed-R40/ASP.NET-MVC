@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c4d0280403b348dc99b198541de4b9a6" Name="Diagram1" ZoomLevel="94">
+        <EntityTypeShape EntityType="StoreManagement_MVCModel.tblCategory" Width="1.5" PointX="0.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreManagement_MVCModel.tblCustomer" Width="1.5" PointX="10.25" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreManagement_MVCModel.tblProduct" Width="1.5" PointX="2.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreManagement_MVCModel.tblPurchase" Width="1.5" PointX="5.375" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="StoreManagement_MVCModel.tblSale" Width="1.5" PointX="7.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="StoreManagement_MVCModel.FK__tblProduc__Categ__25869641" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreManagement_MVCModel.FK__tblSales__Custom__30F848ED" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreManagement_MVCModel.FK__tblPurcha__Produ__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="StoreManagement_MVCModel.FK__tblSales__Produc__2F10007B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

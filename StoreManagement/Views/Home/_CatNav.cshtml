@@ -1,0 +1,17 @@
+﻿@model IEnumerable<StoreManagement.Models.tblCategory>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2>Categories</h2>
+    </div>
+    <div class="list-group">
+        <h4 class="text-right">@Html.ActionLink("Add New Category", "Create", "Categories")</h4>
+        @foreach (var cat in Model)
+        {
+            <a class="list-group-item" href="@Url.Action("Product","Home",new { id=cat.Category_ID})">
+                @cat.Category_Name
+                <span class="badge bottom-right">@cat.tblProducts.Count</span>
+            </a>
+        }
+    </div>
+</div>

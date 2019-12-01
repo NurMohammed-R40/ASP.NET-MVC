@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="StoreManagement_MVCModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Customer_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Customer_Address" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Customer_Phone" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Customer_Email" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Category_ID" Type="int" />
+          <Property Name="Mesureing_Unit" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Available_Quantity" Type="int" Nullable="false" />
+          <Property Name="Selling_Price" Type="money" Nullable="false" />
+          <Property Name="Picture" Type="varbinary(max)" />
+          <Property Name="Product_Description" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblPurchase">
+          <Key>
+            <PropertyRef Name="Purchase_ID" />
+          </Key>
+          <Property Name="Purchase_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Purchase_Date" Type="date" />
+          <Property Name="Dealer_Name" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Dealer_Address" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="tblSales">
+          <Key>
+            <PropertyRef Name="Sales_ID" />
+          </Key>
+          <Property Name="Sales_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_ID" Type="int" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="Sales_Date" Type="date" />
+          <Property Name="Customer_ID" Type="int" />
+        </EntityType>
+        <Association Name="FK__tblProduc__Categ__25869641">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPurcha__Produ__29572725">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblPurchase" Type="Self.tblPurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="tblPurchase">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSales__Custom__30F848ED">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblSales" Type="Self.tblSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSales__Produc__2F10007B">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblSales" Type="Self.tblSales" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreManagement_MVCModelStoreContainer">
+          <EntitySet Name="tblCategory" EntityType="Self.tblCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCustomer" EntityType="Self.tblCustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProduct" EntityType="Self.tblProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblPurchase" EntityType="Self.tblPurchase" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSales" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__tblProduc__Categ__25869641" Association="Self.FK__tblProduc__Categ__25869641">
+            <End Role="tblCategory" EntitySet="tblCategory" />
+            <End Role="tblProduct" EntitySet="tblProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPurcha__Produ__29572725" Association="Self.FK__tblPurcha__Produ__29572725">
+            <End Role="tblProduct" EntitySet="tblProduct" />
+            <End Role="tblPurchase" EntitySet="tblPurchase" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSales__Custom__30F848ED" Association="Self.FK__tblSales__Custom__30F848ED">
+            <End Role="tblCustomer" EntitySet="tblCustomer" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSales__Produc__2F10007B" Association="Self.FK__tblSales__Produc__2F10007B">
+            <End Role="tblProduct" EntitySet="tblProduct" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="StoreManagement_MVCModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCategory">
+          <Key>
+            <PropertyRef Name="Category_ID" />
+          </Key>
+          <Property Name="Category_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblProducts" Relationship="Self.FK__tblProduc__Categ__25869641" FromRole="tblCategory" ToRole="tblProduct" />
+        </EntityType>
+        <EntityType Name="tblCustomer">
+          <Key>
+            <PropertyRef Name="Customer_ID" />
+          </Key>
+          <Property Name="Customer_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Customer_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Phone" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Customer_Email" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="tblSales" Relationship="Self.FK__tblSales__Custom__30F848ED" FromRole="tblCustomer" ToRole="tblSales" />
+        </EntityType>
+        <EntityType Name="tblProduct">
+          <Key>
+            <PropertyRef Name="Product_ID" />
+          </Key>
+          <Property Name="Product_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Category_ID" Type="Int32" />
+          <Property Name="Mesureing_Unit" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Available_Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Selling_Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Picture" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Product_Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblCategory" Relationship="Self.FK__tblProduc__Categ__25869641" FromRole="tblProduct" ToRole="tblCategory" />
+          <NavigationProperty Name="tblPurchases" Relationship="Self.FK__tblPurcha__Produ__29572725" FromRole="tblProduct" ToRole="tblPurchase" />
+          <NavigationProperty Name="tblSales" Relationship="Self.FK__tblSales__Produc__2F10007B" FromRole="tblProduct" ToRole="tblSales" />
+        </EntityType>
+        <EntityType Name="tblPurchase">
+          <Key>
+            <PropertyRef Name="Purchase_ID" />
+          </Key>
+          <Property Name="Purchase_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Purchase_Date" Type="DateTime" Precision="0" />
+          <Property Name="Dealer_Name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dealer_Address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblProduct" Relationship="Self.FK__tblPurcha__Produ__29572725" FromRole="tblPurchase" ToRole="tblProduct" />
+        </EntityType>
+        <EntityType Name="tblSale">
+          <Key>
+            <PropertyRef Name="Sales_ID" />
+          </Key>
+          <Property Name="Sales_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_ID" Type="Int32" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="Sales_Date" Type="DateTime" Precision="0" />
+          <Property Name="Customer_ID" Type="Int32" />
+          <NavigationProperty Name="tblCustomer" Relationship="Self.FK__tblSales__Custom__30F848ED" FromRole="tblSales" ToRole="tblCustomer" />
+          <NavigationProperty Name="tblProduct" Relationship="Self.FK__tblSales__Produc__2F10007B" FromRole="tblSales" ToRole="tblProduct" />
+        </EntityType>
+        <Association Name="FK__tblProduc__Categ__25869641">
+          <End Role="tblCategory" Type="Self.tblCategory" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCategory">
+              <PropertyRef Name="Category_ID" />
+            </Principal>
+            <Dependent Role="tblProduct">
+              <PropertyRef Name="Category_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSales__Custom__30F848ED">
+          <End Role="tblCustomer" Type="Self.tblCustomer" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblSales" Type="Self.tblSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCustomer">
+              <PropertyRef Name="Customer_ID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="Customer_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblPurcha__Produ__29572725">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblPurchase" Type="Self.tblPurchase" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="tblPurchase">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblSales__Produc__2F10007B">
+          <End Role="tblProduct" Type="Self.tblProduct" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="tblSales" Type="Self.tblSale" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblProduct">
+              <PropertyRef Name="Product_ID" />
+            </Principal>
+            <Dependent Role="tblSales">
+              <PropertyRef Name="Product_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="StoreManagement_MVCEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCategories" EntityType="Self.tblCategory" />
+          <EntitySet Name="tblCustomers" EntityType="Self.tblCustomer" />
+          <EntitySet Name="tblProducts" EntityType="Self.tblProduct" />
+          <EntitySet Name="tblPurchases" EntityType="Self.tblPurchase" />
+          <EntitySet Name="tblSales" EntityType="Self.tblSale" />
+          <AssociationSet Name="FK__tblProduc__Categ__25869641" Association="Self.FK__tblProduc__Categ__25869641">
+            <End Role="tblCategory" EntitySet="tblCategories" />
+            <End Role="tblProduct" EntitySet="tblProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSales__Custom__30F848ED" Association="Self.FK__tblSales__Custom__30F848ED">
+            <End Role="tblCustomer" EntitySet="tblCustomers" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblPurcha__Produ__29572725" Association="Self.FK__tblPurcha__Produ__29572725">
+            <End Role="tblProduct" EntitySet="tblProducts" />
+            <End Role="tblPurchase" EntitySet="tblPurchases" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblSales__Produc__2F10007B" Association="Self.FK__tblSales__Produc__2F10007B">
+            <End Role="tblProduct" EntitySet="tblProducts" />
+            <End Role="tblSales" EntitySet="tblSales" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="StoreManagement_MVCModelStoreContainer" CdmEntityContainer="StoreManagement_MVCEntities">
+          <EntitySetMapping Name="tblCategories">
+            <EntityTypeMapping TypeName="StoreManagement_MVCModel.tblCategory">
+              <MappingFragment StoreEntitySet="tblCategory">
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCustomers">
+            <EntityTypeMapping TypeName="StoreManagement_MVCModel.tblCustomer">
+              <MappingFragment StoreEntitySet="tblCustomer">
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+                <ScalarProperty Name="Customer_Name" ColumnName="Customer_Name" />
+                <ScalarProperty Name="Customer_Address" ColumnName="Customer_Address" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Customer_Phone" ColumnName="Customer_Phone" />
+                <ScalarProperty Name="Customer_Email" ColumnName="Customer_Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblProducts">
+            <EntityTypeMapping TypeName="StoreManagement_MVCModel.tblProduct">
+              <MappingFragment StoreEntitySet="tblProduct">
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Category_ID" ColumnName="Category_ID" />
+                <ScalarProperty Name="Mesureing_Unit" ColumnName="Mesureing_Unit" />
+                <ScalarProperty Name="Available_Quantity" ColumnName="Available_Quantity" />
+                <ScalarProperty Name="Selling_Price" ColumnName="Selling_Price" />
+                <ScalarProperty Name="Picture" ColumnName="Picture" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPurchases">
+            <EntityTypeMapping TypeName="StoreManagement_MVCModel.tblPurchase">
+              <MappingFragment StoreEntitySet="tblPurchase">
+                <ScalarProperty Name="Purchase_ID" ColumnName="Purchase_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Purchase_Date" ColumnName="Purchase_Date" />
+                <ScalarProperty Name="Dealer_Name" ColumnName="Dealer_Name" />
+                <ScalarProperty Name="Dealer_Address" ColumnName="Dealer_Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSales">
+            <EntityTypeMapping TypeName="StoreManagement_MVCModel.tblSale">
+              <MappingFragment StoreEntitySet="tblSales">
+                <ScalarProperty Name="Sales_ID" ColumnName="Sales_ID" />
+                <ScalarProperty Name="Product_ID" ColumnName="Product_ID" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="Sales_Date" ColumnName="Sales_Date" />
+                <ScalarProperty Name="Customer_ID" ColumnName="Customer_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

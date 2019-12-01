@@ -1,0 +1,23 @@
+﻿@model IEnumerable<StoreManagement.Models.tblCategory>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Category List</h2>
+
+<table class="table">
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category_Name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Category_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Category_ID })
+            </td>
+        </tr>
+    }
+
+</table>
